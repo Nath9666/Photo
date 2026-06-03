@@ -1,0 +1,16 @@
+#!/bin/sh
+# Hook pre-commit — génère le CHANGELOG avant chaque commit
+
+echo "📷 Génération du CHANGELOG..."
+
+python generate_changelog.py
+
+if [ $? -ne 0 ]; then
+    echo "❌ generate_changelog.py a échoué, commit annulé."
+    exit 1
+fi
+
+# Ajoute le CHANGELOG mis à jour au commit en cours
+git add CHANGELOG.md
+
+echo "✅ CHANGELOG.md mis à jour et ajouté au commit."
