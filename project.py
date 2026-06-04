@@ -195,7 +195,12 @@ def detect_media_info(import_dir: Path) -> tuple[tuple[str, tuple[int, int]]]:
         print("  ⚠ Aucune image analysable trouvée")
         return "unknown", RESOLUTIONS["4K"]
 
-    orientation = "portrait" if portrait_count > paysage_count else "paysage"
+    if portrait_count > 0 and paysage_count > 0:
+        orientation = "both"
+    elif portrait_count > paysage_count:
+        orientation = "portrait"
+    else:
+        orientation = "paysage"
 
     if max_dim >= 3840:
         res_key = "4K"
@@ -207,7 +212,8 @@ def detect_media_info(import_dir: Path) -> tuple[tuple[str, tuple[int, int]]]:
 
     print(f"  ✓ {analyzed} images analysées")
     print(f"    Portrait : {portrait_count} | Paysage : {paysage_count}")
-    print(f"  → Orientation : {orientation.upper()}")
+    orient_display = "PAYSAGE + PORTRAIT" if orientation == "both" else orientation.upper()
+    print(f"  → Orientation : {orient_display}")
     print(f"  → Résolution  : {res_key} ({resolution[0]}×{resolution[1]})")
 
     return orientation, resolution
@@ -584,10 +590,17 @@ def interactive_config() -> dict:
     detected_orientation, detected_resolution = detect_media_info(project_path / "Import")
 
     # Orientation
+    if detected_orientation == "both":
+        auto_label = " (→ paysage + portrait)"
+    elif detected_orientation != "unknown":
+        auto_label = f" (→ {detected_orientation})"
+    else:
+        auto_label = " (impossible)"
     print("\nOrientation :")
-    print("  1. Auto-détection" + (f" (→ {detected_orientation})" if detected_orientation != "unknown" else " (impossible)"))
+    print("  1. Auto-détection" + auto_label)
     print("  2. Paysage (forcer)")
     print("  3. Portrait (forcer)")
+    print("  4. Les deux (paysage + portrait)")
 
     default_choice = "1" if detected_orientation != "unknown" else "2"
     ori_choice = prompt("Choix", default_choice)
@@ -600,10 +613,13 @@ def interactive_config() -> dict:
             orientation = detected_orientation
     elif ori_choice == "3":
         orientation = "portrait"
+    elif ori_choice == "4":
+        orientation = "both"
     else:
         orientation = "paysage"
 
-    print(f"  → Orientation finale : {orientation.upper()}")
+    orient_finale = "PAYSAGE + PORTRAIT" if orientation == "both" else orientation.upper()
+    print(f"  → Orientation finale : {orient_finale}")
 
     return {
         "name":         selected_name,
@@ -682,7 +698,8 @@ def main():
     if config['orientation'] == "portrait":
         w, h = h, w
     print(f"   Résolution  : {w}×{h} @ {config['framerate']} fps")
-    print(f"   Orientation : {config['orientation'].upper()}")
+    orient_display = "PAYSAGE + PORTRAIT" if config['orientation'] == "both" else config['orientation'].upper()
+    print(f"   Orientation : {orient_display}")
     
     import_count = len(collect_media_from_dir(config['project_path'] / "Import"))
     print(f"   Médias      : {import_count} fichiers dans Import/\n")
@@ -698,7 +715,21 @@ def main():
         success = create_project_via_api(config)
         if not success:
             print("\n→ Basculement sur le mode template...")
-            result = clone_template(config)
+            _do_clone(config)
+    else:
+        _do_clone(config)
+
+
+def _do_clone(config: dict):
+    """Clone un ou deux templates selon l'orientation détectée."""
+    if config["orientation"] == "both":
+        for orient, suffix in [("paysage", "_paysage"), ("portrait", "_portrait")]:
+            cfg = {**config, "orientation": orient, "name": config["name"] + suffix}
+            result = clone_template(cfg)
+            if result:
+                print(f"\n📁 Fichier prêt ({orient.upper()}) : {result}")
+        print(f"\n   Les médias sont dans : {config['project_path'] / 'Import'}")
+        print(f"   Les exports iront dans : {config['project_path'] / 'Export'}")
     else:
         result = clone_template(config)
         if result:
