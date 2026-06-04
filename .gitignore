@@ -1,0 +1,37 @@
+# Fichiers temporaires DaVinci Resolve
+*.drp-journal
+*.lock
+
+# Archives
+*.zip
+*.rar
+*.7z
+
+# Fichiers volumineux
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.mxf
+*.r3d
+*.braw
+
+# Raw photos (optionnel - décommentez si vous voulez exclure)
+# *.cr2
+# *.cr3
+# *.nef
+# *.arw
+# *.dng
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
