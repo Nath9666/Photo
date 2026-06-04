@@ -4,6 +4,65 @@
 
 ---
 
+## Snapshot — 2026-06-04 15:16
+**3/33 projets terminés** — 30 restant(s)
+
+### 2026  (1/6)
+
+- ✅ `2026-02-23-ParisNight` — Terminé
+- ⏳ `2026-04-04-Financier` — À faire — pas de projet Resolve
+- ⏳ `2026-04-05-NuitBleu` — À faire — pas de projet Resolve
+- ⏳ `2026-05-26-ParisCathedrale` — À faire — pas de projet Resolve
+- ⏳ `2026-06-03-Autre` — À faire — pas de projet Resolve
+- ⏳ `2026-06-03-CataNuit` — À faire — pas de projet Resolve
+
+### 2025  (2/2)
+
+- ✅ `2025-08-29-PenicheParis` — Terminé
+- ✅ `2025-12-11-PlaceMonge` — Terminé
+
+### 2024  (0/4)
+
+- ⏳ `2024-04-10-ParisNuit` — À faire — pas de projet Resolve
+- ⏳ `2024-05-18-Roller` — À faire — pas de projet Resolve
+- ⏳ `2024-10-27-CarriereMeudon` — À faire — pas de projet Resolve
+- ⏳ `2024-12-22-PantheonBordeau` — À faire — pas de projet Resolve
+
+### 2023  (0/2)
+
+- ⏳ `2023-01-15-RandoNuit` — À faire — pas de projet Resolve
+- ⏳ `2023-07-29-SoleilCoucher` — À faire — pas de projet Resolve
+
+### 2022  (0/9)
+
+- ⏳ `2022-07-12-Ireland` — À faire — pas de projet Resolve
+- ⏳ `2022-07-13-EauParcIreland` — À faire — pas de projet Resolve
+- ⏳ `2022-07-20-NatureWater` — À faire — pas de projet Resolve
+- ⏳ `2022-07-23-ParcNationalIreland` — À faire — pas de projet Resolve
+- ⏳ `2022-07-26-CorkNight` — À faire — pas de projet Resolve
+- ⏳ `2022-07-27-VilleCote` — À faire — pas de projet Resolve
+- ⏳ `2022-07-28-CorkNight` — À faire — pas de projet Resolve
+- ⏳ `2022-08-09-NightCity` — À faire — pas de projet Resolve
+- ⏳ `2022-08-12-SoleilRoyan` — À faire — pas de projet Resolve
+
+### 2020  (0/7)
+
+- ⏳ `2020-01-15-BleuRougeSoleil` — À faire — pas de projet Resolve
+- ⏳ `2020-02-21-SoleilRafale` — À faire — pas de projet Resolve
+- ⏳ `2020-05-08-Royan` — À faire — pas de projet Resolve
+- ⏳ `2020-05-15-nature` — À faire — pas de projet Resolve
+- ⏳ `2020-05-24-Soleil` — À faire — pas de projet Resolve
+- ⏳ `2020-10-08-RueSoleil` — À faire — pas de projet Resolve
+- ⏳ `2020-10-28-Parc` — À faire — pas de projet Resolve
+
+### 2019  (0/3)
+
+- ⏳ `2019-04-03-Soleil` — À faire — pas de projet Resolve
+- ⏳ `2019-05-28-Nature` — À faire — pas de projet Resolve
+- ⏳ `2019-09-16-CoucherSolei` — À faire — pas de projet Resolve
+
+---
+
 ## Snapshot — 2026-06-03 17:53
 **3/22 projets terminés** — 19 restant(s)
 

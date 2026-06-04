@@ -3,6 +3,8 @@ import sys
 import shutil
 from datetime import datetime
 from collections import defaultdict
+import tkinter as tk
+from PIL import ImageTk
 
 try:
     from PIL import Image
@@ -52,9 +54,65 @@ def group_by_date(photos):
         groups[key].append(photo)
     return dict(sorted(groups.items()))
 
+def preview_group(date_str, photos):
+    window = tk.Tk()
+    window.title(f"{date_str} - {len(photos)} photo(s)")
+
+    canvas = tk.Canvas(window)
+    scrollbar = tk.Scrollbar(window, orient="vertical", command=canvas.yview)
+
+    frame = tk.Frame(canvas)
+
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    scrollbar.pack(side="right", fill="y")
+    canvas.pack(side="left", fill="both", expand=True)
+
+    canvas.create_window((0, 0), window=frame, anchor="nw")
+
+    thumbnails = []
+
+    cols = 5
+
+    for i, photo in enumerate(photos):
+        try:
+            img = Image.open(photo)
+            img.thumbnail((200, 200))
+
+            thumb = ImageTk.PhotoImage(img)
+            thumbnails.append(thumb)
+
+            row = i // cols
+            col = i % cols
+
+            label = tk.Label(
+                frame,
+                image=thumb,
+                text=os.path.basename(photo),
+                compound="top"
+            )
+
+            label.grid(
+                row=row,
+                column=col,
+                padx=5,
+                pady=5
+            )
+
+        except Exception as e:
+            print(f"Erreur aperçu {photo}: {e}")
+
+    frame.update_idletasks()
+
+    canvas.configure(
+        scrollregion=canvas.bbox("all")
+    )
+
+    window.mainloop()
+
 def merge_isolated_dates(groups):
     """Fusionne les dates avec une seule photo avec le groupe de date le plus proche."""
-    if len(groups) <= 3:
+    if len(groups) <= 1:
         return groups
 
     merged = {d: list(photos) for d, photos in groups.items()}
@@ -64,7 +122,7 @@ def merge_isolated_dates(groups):
         changed = False
         dates = sorted(merged.keys())
         for date_str in dates:
-            if len(merged[date_str]) == 1:
+            if len(merged[date_str]) <= 6:
                 current = datetime.strptime(date_str, "%Y-%m-%d")
                 other_dates = [d for d in merged if d != date_str]
                 if not other_dates:
@@ -138,6 +196,7 @@ def main():
               + (" ..." if len(date_photos) > 3 else ""))
 
         while True:
+            preview_group(date_str, date_photos)
             project_name = input(f"   Nom du projet pour le {date_str} : ").strip()
             if project_name:
                 break
