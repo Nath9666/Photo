@@ -140,6 +140,79 @@ def detect_orientation(import_dir: Path) -> Literal["portrait", "paysage", "unkn
     return orientation
 
 
+def detect_media_info(import_dir: Path) -> tuple[tuple[str, tuple[int, int]]]:
+    """
+    Analyse les images dans Import/ en un seul passage pour déterminer
+    l'orientation dominante et la résolution native.
+
+    Returns:
+        (orientation, resolution) où
+        - orientation : "portrait" | "paysage" | "unknown"
+        - resolution  : tuple (largeur, hauteur)
+    """
+    try:
+        from PIL import Image
+    except ImportError:
+        print("  ⚠ Module Pillow non installé → orientation et résolution non détectées")
+        print("    Installation : pip install Pillow")
+        return "unknown", RESOLUTIONS["4K"]
+
+    if not import_dir.exists():
+        return "unknown", RESOLUTIONS["4K"]
+
+    image_extensions = {".jpg", ".jpeg", ".png", ".tif", ".tiff", ".bmp", ".webp"}
+
+    portrait_count = 0
+    paysage_count  = 0
+    max_dim        = 0
+    analyzed       = 0
+
+    print(f"\n🔍 Analyse des images dans {import_dir.name}/ ...")
+
+    for img_path in import_dir.rglob("*"):
+        if img_path.suffix.lower() not in image_extensions:
+            continue
+        try:
+            with Image.open(img_path) as img:
+                width, height = img.size
+
+                ratio = abs(width - height) / max(width, height)
+                if ratio >= 0.05:
+                    if height > width:
+                        portrait_count += 1
+                    else:
+                        paysage_count += 1
+
+                max_dim = max(max_dim, width, height)
+                analyzed += 1
+
+                if analyzed >= 20:
+                    break
+        except Exception:
+            continue
+
+    if analyzed == 0:
+        print("  ⚠ Aucune image analysable trouvée")
+        return "unknown", RESOLUTIONS["4K"]
+
+    orientation = "portrait" if portrait_count > paysage_count else "paysage"
+
+    if max_dim >= 3840:
+        res_key = "4K"
+    elif max_dim >= 2704:
+        res_key = "2.7K"
+    else:
+        res_key = "1080p"
+    resolution = RESOLUTIONS[res_key]
+
+    print(f"  ✓ {analyzed} images analysées")
+    print(f"    Portrait : {portrait_count} | Paysage : {paysage_count}")
+    print(f"  → Orientation : {orientation.upper()}")
+    print(f"  → Résolution  : {res_key} ({resolution[0]}×{resolution[1]})")
+
+    return orientation, resolution
+
+
 # ─────────────────────────────────────────────
 # DÉCOUVERTE DES PROJETS EXISTANTS
 # ─────────────────────────────────────────────
@@ -208,8 +281,27 @@ def list_projects():
 # MODE 1 — API DAVINCI RESOLVE
 # ─────────────────────────────────────────────
 
+def _is_resolve_running() -> bool:
+    """Vérifie si DaVinci Resolve est en cours d'exécution (sans importer de DLL)."""
+    import subprocess
+    try:
+        result = subprocess.run(
+            ["tasklist", "/FI", "IMAGENAME eq Resolve.exe", "/NH"],
+            capture_output=True, text=True, timeout=5,
+        )
+        return "Resolve.exe" in result.stdout
+    except Exception:
+        return False
+
+
 def get_resolve_api():
     """Tente d'importer l'API DaVinci Resolve (disponible si Resolve est ouvert)."""
+    # Vérifier que Resolve tourne AVANT d'importer la DLL native
+    # (l'import plante avec un segfault si Resolve est fermé)
+    if not _is_resolve_running():
+        print("✗ DaVinci Resolve n'est pas en cours d'exécution")
+        return None
+
     # Chemins standards Windows
     resolve_paths = [
         r"C:\ProgramData\Blackmagic Design\DaVinci Resolve\Support\Developer\Scripting\Modules",
@@ -488,18 +580,18 @@ def interactive_config() -> dict:
     import_count = len(collect_media_from_dir(project_path / "Import"))
     print(f"  {import_count} fichier(s) médias dans Import/")
 
-    # Détection automatique de l'orientation
-    detected_orientation = detect_orientation(project_path / "Import")
-    
+    # Détection automatique de l'orientation et de la résolution
+    detected_orientation, detected_resolution = detect_media_info(project_path / "Import")
+
     # Orientation
     print("\nOrientation :")
     print("  1. Auto-détection" + (f" (→ {detected_orientation})" if detected_orientation != "unknown" else " (impossible)"))
     print("  2. Paysage (forcer)")
     print("  3. Portrait (forcer)")
-    
+
     default_choice = "1" if detected_orientation != "unknown" else "2"
     ori_choice = prompt("Choix", default_choice)
-    
+
     if ori_choice == "1":
         if detected_orientation == "unknown":
             print("  ⚠ Détection impossible → paysage par défaut")
@@ -510,27 +602,15 @@ def interactive_config() -> dict:
         orientation = "portrait"
     else:
         orientation = "paysage"
-    
+
     print(f"  → Orientation finale : {orientation.upper()}")
-
-    # Résolution
-    print("\nRésolution :")
-    for i, (k, v) in enumerate(RESOLUTIONS.items(), 1):
-        print(f"  {i}. {k}  ({v[0]}×{v[1]})")
-    res_choice  = prompt("Choix", "1")
-    res_key     = list(RESOLUTIONS.keys())[int(res_choice)-1 if res_choice.isdigit() else 0]
-    resolution  = RESOLUTIONS[res_key]
-
-    # Fréquence d'images
-    print(f"\nFréquence d'images : {', '.join(FRAMERATES)}")
-    framerate = prompt("Valeur", "25")
 
     return {
         "name":         selected_name,
         "project_path": project_path,
         "orientation":  orientation,
-        "resolution":   resolution,
-        "framerate":    framerate,
+        "resolution":   detected_resolution,
+        "framerate":    "25",
     }
 
 
@@ -545,8 +625,10 @@ def main():
                         help="api=via Resolve ouvert | template=clone .drp | auto=détection")
     parser.add_argument("--project", help="Nom du projet (ex: 2019-04-03-Soleil)")
     parser.add_argument("--orient",  choices=["portrait", "paysage", "auto"], default="auto")
-    parser.add_argument("--res",     choices=list(RESOLUTIONS.keys()), default="4K")
-    parser.add_argument("--fps",     default="25")
+    parser.add_argument("--res",     choices=list(RESOLUTIONS.keys()), default=None,
+                        help="Force la résolution (sinon auto-détectée)")
+    parser.add_argument("--fps",     default=None,
+                        help="Force la fréquence d'images (sinon 25 par défaut)")
     parser.add_argument("--list",    action="store_true", help="Liste tous les projets et quitte")
     args = parser.parse_args()
 
@@ -571,21 +653,25 @@ def main():
         
         project_path = projects[args.project]
         
-        # Orientation auto-détectée si demandée
+        # Détection automatique de l'orientation et de la résolution
         if args.orient == "auto":
-            orientation = detect_orientation(project_path / "Import")
-            if orientation == "unknown":
+            detected_orientation, detected_resolution = detect_media_info(project_path / "Import")
+            if detected_orientation == "unknown":
                 print("  ⚠ Détection impossible → paysage par défaut")
                 orientation = "paysage"
+            else:
+                orientation = detected_orientation
+            resolution = RESOLUTIONS[args.res] if args.res else detected_resolution
         else:
             orientation = args.orient
-        
+            resolution  = RESOLUTIONS[args.res] if args.res else RESOLUTIONS["4K"]
+
         config = {
             "name":         args.project,
             "project_path": project_path,
             "orientation":  orientation,
-            "resolution":   RESOLUTIONS[args.res],
-            "framerate":    args.fps,
+            "resolution":   resolution,
+            "framerate":    args.fps or "25",
         }
 
     print(f"\n📋 Résumé du projet :")
