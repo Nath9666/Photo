@@ -1,154 +1,324 @@
-# 📷 Photo Workflow Manager
+# 📷 Récapitulatif des exports
 
-Deux scripts Python pour organiser et suivre ta pipeline de retouche photo, de l'import jusqu'à l'export DaVinci Resolve.
-
----
-
-## Vue d'ensemble
-
-Ce projet automatise deux tâches répétitives :
-
-1. **Organiser** les photos brutes en projets structurés, regroupées par date de prise de vue
-2. **Suivre** l'avancement des retouches à travers les différentes étapes du workflow
+> Généré le 05/06/2026 à 14h40 · **33 projet(s)** · **47 photo(s)**
 
 ---
 
-## Structure des dossiers générée
+## 2019
 
-```
-repo/
-├── 2024/
-│   ├── 2024-06-14-Mariage-Dupont/
-│   │   ├── Import/          ← photos brutes déplacées ici
-│   │   ├── Export/          ← exports finaux
-│   │   └── ResolveProject/  ← fichiers .drp DaVinci Resolve
-│   └── 2024-08-03-Portrait/
-│       └── ...
-├── 2025/
-│   └── ...
-├── _A_retouche/             ← dossier de dépôt des nouvelles photos
-├── generate_changelog.py
-├── organisateur_photos.py
-├── CHANGELOG.md
-└── hooks/
-    ├── pre-commit
-    └── install_hooks.sh
-```
+### 🗂️ 2019-04-03-Soleil
+📸 **8 photo(s)**
+
+<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
+
+<img src="2019/2019-04-03-Soleil/Export/Timeline 1_00086400.png" width="250" height="444" alt="Timeline 1_00086400.png" title="Timeline 1_00086400.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-04-03-Soleil/Export/Timeline 1_00086401.png" width="250" height="444" alt="Timeline 1_00086401.png" title="Timeline 1_00086401.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-04-03-Soleil/Export/Timeline 1_00086402.png" width="250" height="444" alt="Timeline 1_00086402.png" title="Timeline 1_00086402.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-04-03-Soleil/Export/Timeline 1_00086403.png" width="250" height="444" alt="Timeline 1_00086403.png" title="Timeline 1_00086403.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-04-03-Soleil/Export/Timeline 1_00086404.png" width="250" height="444" alt="Timeline 1_00086404.png" title="Timeline 1_00086404.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-04-03-Soleil/Export/Timeline 1_00086405.png" width="250" height="444" alt="Timeline 1_00086405.png" title="Timeline 1_00086405.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-04-03-Soleil/Export/Timeline 1_00086406.png" width="250" height="444" alt="Timeline 1_00086406.png" title="Timeline 1_00086406.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-04-03-Soleil/Export/Timeline 1_00086407.png" width="250" height="444" alt="Timeline 1_00086407.png" title="Timeline 1_00086407.png" style="border-radius:4px; object-fit:cover;">
+
+</div>
 
 ---
 
-## Scripts
+### 🗂️ 2019-05-28-Nature
+📸 **0 photo(s)**
 
-### `organisateur_photos.py` — Import & organisation
-
-Scanne le dossier `_A_retouche/`, lit les métadonnées EXIF de chaque photo pour extraire la date de prise de vue, regroupe les photos par jour, puis crée la structure de projet et déplace les fichiers.
-
-**Comportement intelligent :**
-- Les photos isolées (seule photo d'une journée) sont automatiquement fusionnées avec le groupe de date le plus proche
-- Fallback sur la date de modification du fichier si les EXIF sont absents
-- Ne réécrase jamais un fichier déjà présent dans `Import/`
-
-**Lancement :**
-```bash
-python organisateur_photos.py
-```
-
-Le script est interactif : pour chaque groupe de dates détecté, il demande un nom de projet.
-
-```
-📷 6 photo(s) trouvée(s), regroupées en 2 date(s).
-
-📅 Date : 2024-06-14  (5 photo(s))
-   Aperçu : ['IMG_001.jpg', 'IMG_002.jpg', 'IMG_003.jpg'] ...
-   Nom du projet pour le 2024-06-14 : Mariage-Dupont
-
-  ✅ Projet créé : /Users/toi/Photos/2024/2024-06-14-Mariage-Dupont
-  📁 5 photo(s) déplacée(s) dans Import
-```
-
-**Formats supportés :** `.jpg` `.jpeg` `.png` `.tiff` `.tif` `.cr2` `.nef` `.arw` `.dng`
+*Aucune photo dans ce dossier Export.*
 
 ---
 
-### `generate_changelog.py` — Suivi de l'avancement
+### 🗂️ 2019-09-16-CoucherSolei
+📸 **9 photo(s)**
 
-Parcourt tous les dossiers années et projets pour évaluer l'état de chaque retouche, puis génère (ou met à jour) `CHANGELOG.md`.
+<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
 
-**Un projet est considéré terminé quand :**
-- ✅ Un fichier `.drp` est présent dans `ResolveProject/` **ET**
-- ✅ Au moins un fichier est présent dans `Export/`
+<img src="2019/2019-09-16-CoucherSolei/Export/Timeline 1_00086400.png" width="444" height="250" alt="Timeline 1_00086400.png" title="Timeline 1_00086400.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-09-16-CoucherSolei/Export/Timeline 1_00086401.png" width="444" height="250" alt="Timeline 1_00086401.png" title="Timeline 1_00086401.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-09-16-CoucherSolei/Export/Timeline 1_00086402.png" width="444" height="250" alt="Timeline 1_00086402.png" title="Timeline 1_00086402.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-09-16-CoucherSolei/Export/Timeline 1_00086403.png" width="444" height="250" alt="Timeline 1_00086403.png" title="Timeline 1_00086403.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-09-16-CoucherSolei/Export/Timeline 1_00086404.png" width="444" height="250" alt="Timeline 1_00086404.png" title="Timeline 1_00086404.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-09-16-CoucherSolei/Export/Timeline 1_00086405.png" width="444" height="250" alt="Timeline 1_00086405.png" title="Timeline 1_00086405.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-09-16-CoucherSolei/Export/Timeline 1_00086406.png" width="444" height="250" alt="Timeline 1_00086406.png" title="Timeline 1_00086406.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-09-16-CoucherSolei/Export/Timeline 1_00086407.png" width="444" height="250" alt="Timeline 1_00086407.png" title="Timeline 1_00086407.png" style="border-radius:4px; object-fit:cover;">
+<img src="2019/2019-09-16-CoucherSolei/Export/Timeline 2_00086400.png" width="250" height="444" alt="Timeline 2_00086400.png" title="Timeline 2_00086400.png" style="border-radius:4px; object-fit:cover;">
 
-| Icône | Statut |
-|-------|--------|
-| ✅ | Terminé |
-| 🔧 | En cours — projet Resolve créé, export manquant |
-| ⏳ | À faire — pas encore ouvert dans Resolve |
-
-**Lancement :**
-```bash
-python generate_changelog.py
-```
-
-Chaque exécution **ajoute un nouveau snapshot** en haut du `CHANGELOG.md` sans effacer l'historique, ce qui permet de voir l'avancement dans le temps.
+</div>
 
 ---
 
-## Installation
+## 2020
 
-### Prérequis
+### 🗂️ 2020-01-15-BleuRougeSoleil
+📸 **4 photo(s)**
 
-- Python 3.8+
-- [Pillow](https://pillow.readthedocs.io/) (installé automatiquement au premier lancement si absent)
+<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
 
-### Mise en place
+<img src="2020/2020-01-15-BleuRougeSoleil/Export/Timeline 1_00086400.png" width="250" height="444" alt="Timeline 1_00086400.png" title="Timeline 1_00086400.png" style="border-radius:4px; object-fit:cover;">
+<img src="2020/2020-01-15-BleuRougeSoleil/Export/Timeline 1_00086401.png" width="250" height="444" alt="Timeline 1_00086401.png" title="Timeline 1_00086401.png" style="border-radius:4px; object-fit:cover;">
+<img src="2020/2020-01-15-BleuRougeSoleil/Export/Timeline 1_00086402.png" width="250" height="444" alt="Timeline 1_00086402.png" title="Timeline 1_00086402.png" style="border-radius:4px; object-fit:cover;">
+<img src="2020/2020-01-15-BleuRougeSoleil/Export/Timeline 1_00086403.png" width="250" height="444" alt="Timeline 1_00086403.png" title="Timeline 1_00086403.png" style="border-radius:4px; object-fit:cover;">
 
-```bash
-# 1. Cloner le repo
-git clone <url-du-repo>
-cd <nom-du-repo>
-
-# 2. Installer les git hooks (une seule fois)
-sh hooks/install_hooks.sh
-```
-
-C'est tout. Le changelog se mettra à jour automatiquement à chaque `git commit`.
+</div>
 
 ---
 
-## Git hooks
+### 🗂️ 2020-02-21-SoleilRafale
+📸 **0 photo(s)**
 
-Le dossier `hooks/` contient un hook `pre-commit` versionné qui lance `generate_changelog.py` automatiquement avant chaque commit et ajoute le `CHANGELOG.md` mis à jour au commit.
-
-Pour l'activer après un clone :
-```bash
-sh hooks/install_hooks.sh
-```
-
-> Si tu travailles à plusieurs sur le repo, chaque collaborateur doit lancer cette commande une fois après le clone.
+*Aucune photo dans ce dossier Export.*
 
 ---
 
-## Workflow typique
+### 🗂️ 2020-05-08-Royan
+📸 **0 photo(s)**
 
-```
-1. Copier les photos brutes dans _A_retouche/
-          ↓
-2. python organisateur_photos.py
-   → Nommer les projets
-   → Les photos sont rangées dans Import/
-          ↓
-3. Ouvrir DaVinci Resolve
-   → Créer/enregistrer le projet dans ResolveProject/
-   → Exporter les fichiers finaux dans Export/
-          ↓
-4. git commit
-   → CHANGELOG.md mis à jour automatiquement
-```
+*Aucune photo dans ce dossier Export.*
 
 ---
 
-## Dépendances
+### 🗂️ 2020-05-15-nature
+📸 **0 photo(s)**
 
-| Package | Usage | Installation |
-|---------|-------|-------------|
-| `Pillow` | Lecture des métadonnées EXIF | Auto au premier lancement, ou `pip install Pillow` |
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2020-05-24-Soleil
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2020-10-08-RueSoleil
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2020-10-28-Parc
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+## 2022
+
+### 🗂️ 2022-07-12-Ireland
+📸 **7 photo(s)**
+
+<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
+
+<img src="2022/2022-07-12-Ireland/Export/00086400.png" width="444" height="250" alt="00086400.png" title="00086400.png" style="border-radius:4px; object-fit:cover;">
+<img src="2022/2022-07-12-Ireland/Export/00086401.png" width="444" height="250" alt="00086401.png" title="00086401.png" style="border-radius:4px; object-fit:cover;">
+<img src="2022/2022-07-12-Ireland/Export/Timeline 1_00086400.png" width="250" height="444" alt="Timeline 1_00086400.png" title="Timeline 1_00086400.png" style="border-radius:4px; object-fit:cover;">
+<img src="2022/2022-07-12-Ireland/Export/Timeline 1_00086401.png" width="250" height="444" alt="Timeline 1_00086401.png" title="Timeline 1_00086401.png" style="border-radius:4px; object-fit:cover;">
+<img src="2022/2022-07-12-Ireland/Export/Timeline 1_00086402.png" width="250" height="444" alt="Timeline 1_00086402.png" title="Timeline 1_00086402.png" style="border-radius:4px; object-fit:cover;">
+<img src="2022/2022-07-12-Ireland/Export/Timeline 1_00086403.png" width="250" height="444" alt="Timeline 1_00086403.png" title="Timeline 1_00086403.png" style="border-radius:4px; object-fit:cover;">
+<img src="2022/2022-07-12-Ireland/Export/Timeline 1_00086404.png" width="250" height="444" alt="Timeline 1_00086404.png" title="Timeline 1_00086404.png" style="border-radius:4px; object-fit:cover;">
+
+</div>
+
+---
+
+### 🗂️ 2022-07-13-EauParcIreland
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2022-07-20-NatureWater
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2022-07-23-ParcNationalIreland
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2022-07-26-CorkNight
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2022-07-27-VilleCote
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2022-07-28-CorkNight
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2022-08-09-NightCity
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2022-08-12-SoleilRoyan
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+## 2023
+
+### 🗂️ 2023-01-15-RandoNuit
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2023-07-29-SoleilCoucher
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+## 2024
+
+### 🗂️ 2024-04-10-ParisNuit
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2024-05-18-Roller
+📸 **3 photo(s)**
+
+<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
+
+<img src="2024/2024-05-18-Roller/Export/IMG20240518230958_00000000.png" width="250" height="444" alt="IMG20240518230958_00000000.png" title="IMG20240518230958_00000000.png" style="border-radius:4px; object-fit:cover;">
+<img src="2024/2024-05-18-Roller/Export/IMG20240518231002_00000000.png" width="250" height="444" alt="IMG20240518231002_00000000.png" title="IMG20240518231002_00000000.png" style="border-radius:4px; object-fit:cover;">
+<img src="2024/2024-05-18-Roller/Export/IMG20240518231009_00000000.png" width="250" height="444" alt="IMG20240518231009_00000000.png" title="IMG20240518231009_00000000.png" style="border-radius:4px; object-fit:cover;">
+
+</div>
+
+---
+
+### 🗂️ 2024-10-27-CarriereMeudon
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2024-12-22-PantheonBordeau
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+## 2025
+
+### 🗂️ 2025-08-29-PenicheParis
+📸 **3 photo(s)**
+
+<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
+
+<img src="2025/2025-08-29-PenicheParis/Export/Image 2026-06-01 183326_1.1.1.jpg" width="250" height="444" alt="Image 2026-06-01 183326_1.1.1.jpg" title="Image 2026-06-01 183326_1.1.1.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2025/2025-08-29-PenicheParis/Export/Image 2026-06-01 183839_1.2.1.jpg" width="250" height="444" alt="Image 2026-06-01 183839_1.2.1.jpg" title="Image 2026-06-01 183839_1.2.1.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2025/2025-08-29-PenicheParis/Export/Image 2026-06-01 183846_1.3.1.jpg" width="250" height="444" alt="Image 2026-06-01 183846_1.3.1.jpg" title="Image 2026-06-01 183846_1.3.1.jpg" style="border-radius:4px; object-fit:cover;">
+
+</div>
+
+---
+
+### 🗂️ 2025-12-11-PlaceMonge
+📸 **2 photo(s)**
+
+<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
+
+<img src="2025/2025-12-11-PlaceMonge/Export/Image 2026-06-01 190156_1.1.1.jpg" width="250" height="444" alt="Image 2026-06-01 190156_1.1.1.jpg" title="Image 2026-06-01 190156_1.1.1.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2025/2025-12-11-PlaceMonge/Export/Image 2026-06-01 190224_1.2.1.jpg" width="250" height="444" alt="Image 2026-06-01 190224_1.2.1.jpg" title="Image 2026-06-01 190224_1.2.1.jpg" style="border-radius:4px; object-fit:cover;">
+
+</div>
+
+---
+
+## 2026
+
+### 🗂️ 2026-02-23-ParisNight
+📸 **8 photo(s)**
+
+<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
+
+<img src="2026/2026-02-23-ParisNight/Export/photoPortrait00086400.jpg" width="250" height="444" alt="photoPortrait00086400.jpg" title="photoPortrait00086400.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2026/2026-02-23-ParisNight/Export/photoPortrait00086401.jpg" width="250" height="444" alt="photoPortrait00086401.jpg" title="photoPortrait00086401.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2026/2026-02-23-ParisNight/Export/photoPortrait00086402.jpg" width="250" height="444" alt="photoPortrait00086402.jpg" title="photoPortrait00086402.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2026/2026-02-23-ParisNight/Export/photoPortrait00086403.jpg" width="250" height="444" alt="photoPortrait00086403.jpg" title="photoPortrait00086403.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2026/2026-02-23-ParisNight/Export/photoPortrait00086404.jpg" width="250" height="444" alt="photoPortrait00086404.jpg" title="photoPortrait00086404.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2026/2026-02-23-ParisNight/Export/photoPortrait00086405.jpg" width="250" height="444" alt="photoPortrait00086405.jpg" title="photoPortrait00086405.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2026/2026-02-23-ParisNight/Export/photoPortrait00086406.jpg" width="250" height="444" alt="photoPortrait00086406.jpg" title="photoPortrait00086406.jpg" style="border-radius:4px; object-fit:cover;">
+<img src="2026/2026-02-23-ParisNight/Export/photoPortrait00086407.jpg" width="250" height="444" alt="photoPortrait00086407.jpg" title="photoPortrait00086407.jpg" style="border-radius:4px; object-fit:cover;">
+
+</div>
+
+---
+
+### 🗂️ 2026-04-04-Financier
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2026-04-05-NuitBleu
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2026-05-26-ParisCathedrale
+📸 **3 photo(s)**
+
+<div style="display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
+
+<img src="2026/2026-05-26-ParisCathedrale/Export/IMG20260526215146_00000000.png" width="444" height="250" alt="IMG20260526215146_00000000.png" title="IMG20260526215146_00000000.png" style="border-radius:4px; object-fit:cover;">
+<img src="2026/2026-05-26-ParisCathedrale/Export/IMG20260526215205_00000000.png" width="444" height="250" alt="IMG20260526215205_00000000.png" title="IMG20260526215205_00000000.png" style="border-radius:4px; object-fit:cover;">
+<img src="2026/2026-05-26-ParisCathedrale/Export/IMG20260526215218_00000000.png" width="444" height="250" alt="IMG20260526215218_00000000.png" title="IMG20260526215218_00000000.png" style="border-radius:4px; object-fit:cover;">
+
+</div>
+
+---
+
+### 🗂️ 2026-06-03-Autre
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2026-06-03-CataNuit
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
