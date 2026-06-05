@@ -4,6 +4,7 @@
 echo "📷 Génération du CHANGELOG..."
 
 python generate_changelog.py
+python export.py
 
 if [ $? -ne 0 ]; then
     echo "❌ generate_changelog.py a échoué, commit annulé."
@@ -12,5 +13,6 @@ fi
 
 # Ajoute le CHANGELOG mis à jour au commit en cours
 git add CHANGELOG.md
+git add README.md
 
 echo "✅ CHANGELOG.md mis à jour et ajouté au commit."
