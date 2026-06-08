@@ -1,18 +1,19 @@
 #!/bin/sh
-# Hook pre-commit — génère le CHANGELOG avant chaque commit
+
+set -e
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+echo "REPO_ROOT=$REPO_ROOT"
+ls "$REPO_ROOT/utils"
+
+PYTHON="python"
 
 echo "📷 Génération du CHANGELOG..."
 
-python generate_changelog.py
-python export.py
+"$PYTHON" "$REPO_ROOT/utils/generate_changelog.py"
+"$PYTHON" "$REPO_ROOT/utils/export.py"
 
-if [ $? -ne 0 ]; then
-    echo "❌ generate_changelog.py a échoué, commit annulé."
-    exit 1
-fi
+git add CHANGELOG.md README.md
 
-# Ajoute le CHANGELOG mis à jour au commit en cours
-git add CHANGELOG.md
-git add README.md
-
-echo "✅ CHANGELOG.md mis à jour et ajouté au commit."
+echo "✅ OK"
