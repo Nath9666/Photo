@@ -123,7 +123,9 @@ def build_readme(projects, base_dir):
     return "\n".join(lines)
 
 def main():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+
+    print(base_dir)
 
     print("\n🔍 Scan des dossiers Export en cours...\n")
     projects = find_all_exports(base_dir)
