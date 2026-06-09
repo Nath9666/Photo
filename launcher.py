@@ -82,16 +82,18 @@ def main():
     print("Orientation :", orientation)
     print("Media :", len(media))
 
-    # split media
-    portrait_media = media
-    landscape_media = media
+    # split media par orientation
+    portrait_media, landscape_media = pm.split_media_by_orientation(import_dir)
+
+    print("Portrait :", len(portrait_media), "| Paysage :", len(landscape_media))
 
     session = {
         "project_name": project_name,
         "project_path": str(project_path),
         "orientation": orientation,
         "resolution": resolution,
-        "media": media,
+        "portrait_media": portrait_media,
+        "landscape_media": landscape_media,
     }
 
     template_file = copy_template(project_path, orientation, project_name)
@@ -104,7 +106,11 @@ def main():
 
     print("\n✔ session créée :", session_file)
 
-    print("\n👉 Ouvre DaVinci Resolve et lance resolve_import.py")
+    print("\n👉 Étapes suivantes :")
+    for i, drp in enumerate(template_file, 1):
+        print(f"   {i}. Ouvre dans DaVinci Resolve : {drp}")
+    print(f"\n   Depuis chaque projet ouvert, exécute dans la console Resolve :")
+    print(f"   utils/resolve/resolve_import.py")
 
 
 if __name__ == "__main__":

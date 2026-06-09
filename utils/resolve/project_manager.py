@@ -26,6 +26,42 @@ def collect_media(import_dir: Path) -> list[str]:
     ]
 
 
+def split_media_by_orientation(import_dir: Path) -> tuple[list[str], list[str]]:
+    """Retourne (portrait_media, landscape_media).
+    Les vidéos et fichiers non analysables sont placés dans les deux listes."""
+    try:
+        from PIL import Image
+    except ImportError:
+        all_media = collect_media(import_dir)
+        return all_media, all_media
+
+    portrait: list[str] = []
+    landscape: list[str] = []
+
+    for f in import_dir.rglob("*"):
+        if not f.is_file():
+            continue
+        ext = f.suffix.lower()
+        if ext in VIDEO_EXTENSIONS:
+            portrait.append(str(f))
+            landscape.append(str(f))
+            continue
+        if ext not in PHOTO_EXTENSIONS:
+            continue
+        try:
+            with Image.open(f) as im:
+                w, h = im.size
+            if h > w:
+                portrait.append(str(f))
+            else:
+                landscape.append(str(f))
+        except Exception:
+            portrait.append(str(f))
+            landscape.append(str(f))
+
+    return portrait, landscape
+
+
 def detect_orientation(import_dir: Path) -> Literal["portrait", "paysage", "both", "unknown"]:
     """Analyse simple des images pour orientation dominante"""
     try:
