@@ -1,6 +1,6 @@
 # 📷 Récapitulatif des exports
 
-> Généré le 09/06/2026 à 22h39 · **33 projet(s)** · **47 photo(s)**
+> Généré le 12/06/2026 à 18h15 · **34 projet(s)** · **47 photo(s)**
 
 ---
 
@@ -317,6 +317,13 @@
 ---
 
 ### 🗂️ 2026-06-03-CataNuit
+📸 **0 photo(s)**
+
+*Aucune photo dans ce dossier Export.*
+
+---
+
+### 🗂️ 2026-06-11-90ans-Financier
 📸 **0 photo(s)**
 
 *Aucune photo dans ce dossier Export.*
