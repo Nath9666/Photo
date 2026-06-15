@@ -1,6 +1,6 @@
 # 📷 Récapitulatif des exports
 
-> Généré le 12/06/2026 à 18h15 · **34 projet(s)** · **47 photo(s)**
+> Généré le 15/06/2026 à 17h59 · **34 projet(s)** · **47 photo(s)**
 
 ---
 
